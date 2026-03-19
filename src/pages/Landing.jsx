@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Box, Container, Typography, TextField, Button, Grid,
   InputAdornment, Alert, Fade, Chip, Stack, Divider,
@@ -93,9 +94,31 @@ export default function Landing() {
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
       {/* Navbar */}
       <Box sx={{ borderBottom: '1px solid', borderColor: 'divider', bgcolor: 'white', px: 4, py: 2 }}>
-        <Typography variant="h6" fontWeight={700} color="primary">
-          Empresa X
-        </Typography>
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Typography variant="h6" fontWeight={700} color="primary">
+            Empresa X
+          </Typography>
+          <Stack direction="row" spacing={1.5} alignItems="center">
+            <Button
+              component={RouterLink}
+              to="/login"
+              variant="text"
+              size="small"
+              sx={{ color: 'text.secondary', fontWeight: 600 }}
+            >
+              Iniciar sesión
+            </Button>
+            <Button
+              component={RouterLink}
+              to="/register"
+              variant="contained"
+              size="small"
+              sx={{ py: 0.8 }}
+            >
+              Crear cuenta
+            </Button>
+          </Stack>
+        </Stack>
       </Box>
 
       <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
