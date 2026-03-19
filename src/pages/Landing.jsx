@@ -217,7 +217,11 @@ export default function Landing() {
                       {AMOUNTS.map((a) => (
                         <Grid item xs={6} key={a.value}>
                           <Box
-                            onClick={() => { setSelectedAmount(a.value); setValue('amount', a.value); }}
+                            onClick={() => {
+                              setSelectedAmount(a.value);
+                              setValue('amount', a.value);
+                              setValue('customAmount', '');
+                            }}
                             sx={{
                               border: '1.5px solid',
                               borderColor: selectedAmount === a.value ? 'primary.main' : 'divider',
@@ -240,8 +244,20 @@ export default function Landing() {
                       label="Otro monto"
                       fullWidth
                       type="number"
-                      InputProps={{ startAdornment: <InputAdornment position="start"><AttachMoneyIcon fontSize="small" /></InputAdornment> }}
-                      onChange={(e) => setSelectedAmount(Number(e.target.value))}
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start"><AttachMoneyIcon fontSize="small" /></InputAdornment>,
+                      }}
+                      {...register('customAmount')}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val) {
+                          setSelectedAmount(null);
+                          setValue('amount', Number(val));
+                        } else {
+                          setSelectedAmount(null);
+                          setValue('amount', null);
+                        }
+                      }}
                     />
                   </Box>
 
