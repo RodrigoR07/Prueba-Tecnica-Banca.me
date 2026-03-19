@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Link as RouterLink } from 'react-router-dom';
 import {
   Box, Container, Typography, TextField, Button, Grid,
   InputAdornment, Alert, Fade, Chip, Stack, Divider,
 } from '@mui/material';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
@@ -28,6 +29,7 @@ const AMOUNTS = [
 ];
 
 export default function Landing() {
+  const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState(null);
@@ -92,33 +94,24 @@ export default function Landing() {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Navbar */}
-      <Box sx={{ borderBottom: '1px solid', borderColor: 'divider', bgcolor: 'white', px: 4, py: 2 }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Typography variant="h6" fontWeight={700} color="primary">
-            Empresa X
-          </Typography>
-          <Stack direction="row" spacing={1.5} alignItems="center">
-            <Button
-              component={RouterLink}
-              to="/login"
-              variant="text"
-              size="small"
-              sx={{ color: 'text.secondary', fontWeight: 600 }}
-            >
-              Iniciar sesión
-            </Button>
-            <Button
-              component={RouterLink}
-              to="/register"
-              variant="contained"
-              size="small"
-              sx={{ py: 0.8 }}
-            >
-              Crear cuenta
-            </Button>
-          </Stack>
-        </Stack>
+        {/* Navbar */}
+        <Box sx={{
+        borderBottom: '1px solid', borderColor: 'divider',
+        bgcolor: 'white', px: 4, py: 2,
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      }}>
+        <Typography variant="h4" fontWeight={700} color="primary">
+          banca.me
+        </Typography>
+        <Button
+          variant="outlined"
+          size="small"
+          startIcon={<LoginOutlinedIcon />}
+          onClick={() => navigate('/login')}
+          sx={{ borderColor: 'divider', color: 'text.primary' }}
+        >
+          Acceso colaboradores
+        </Button>
       </Box>
 
       <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
@@ -177,104 +170,20 @@ export default function Landing() {
               <Box component="form" onSubmit={handleSubmit(onSubmit)}>
                 <Stack spacing={2.5}>
 
-                  <TextField
-                    label="Nombre completo"
-                    fullWidth
-                    InputProps={{ startAdornment: <InputAdornment position="start"><PersonOutlineIcon fontSize="small" /></InputAdornment> }}
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                    {...register('name', { required: 'El nombre es obligatorio' })}
-                  />
-
-                  <TextField
-                    label="Correo electrónico"
-                    fullWidth
-                    type="email"
-                    InputProps={{ startAdornment: <InputAdornment position="start"><EmailOutlinedIcon fontSize="small" /></InputAdornment> }}
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                    {...register('email', {
-                      required: 'El correo es obligatorio',
-                      pattern: { value: /\S+@\S+\.\S+/, message: 'Correo inválido' },
-                    })}
-                  />
-
-                  <TextField
-                    label="Teléfono"
-                    fullWidth
-                    InputProps={{ startAdornment: <InputAdornment position="start"><PhoneOutlinedIcon fontSize="small" /></InputAdornment> }}
-                    error={!!errors.phone}
-                    helperText={errors.phone?.message}
-                    {...register('phone', { required: 'El teléfono es obligatorio' })}
-                  />
-
-                  {/* Monto rápido */}
-                  <Box>
-                    <Typography variant="body2" fontWeight={600} sx={{ mb: 1.5 }}>
-                      ¿Cuánto necesitas? (CLP)
-                    </Typography>
-                    <Grid container spacing={1} sx={{ mb: 2 }}>
-                      {AMOUNTS.map((a) => (
-                        <Grid item xs={6} key={a.value}>
-                          <Box
-                            onClick={() => {
-                              setSelectedAmount(a.value);
-                              setValue('amount', a.value);
-                              setValue('customAmount', '');
-                            }}
-                            sx={{
-                              border: '1.5px solid',
-                              borderColor: selectedAmount === a.value ? 'primary.main' : 'divider',
-                              borderRadius: 2,
-                              p: 1.5,
-                              textAlign: 'center',
-                              cursor: 'pointer',
-                              bgcolor: selectedAmount === a.value ? 'primary.main' : 'transparent',
-                              color: selectedAmount === a.value ? 'white' : 'text.primary',
-                              transition: 'all 0.15s ease',
-                              '&:hover': { borderColor: 'primary.main' },
-                            }}
-                          >
-                            <Typography variant="body2" fontWeight={600}>{a.label}</Typography>
-                          </Box>
-                        </Grid>
-                      ))}
-                    </Grid>
-                    <TextField
-                      label="Otro monto"
-                      fullWidth
-                      type="number"
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start"><AttachMoneyIcon fontSize="small" /></InputAdornment>,
-                      }}
-                      {...register('customAmount')}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        if (val) {
-                          setSelectedAmount(null);
-                          setValue('amount', Number(val));
-                        } else {
-                          setSelectedAmount(null);
-                          setValue('amount', null);
-                        }
-                      }}
-                    />
-                  </Box>
-
                   <Button
-                    type="submit"
+                    component={RouterLink}
+                    to="/solicitud"
                     variant="contained"
                     size="large"
                     fullWidth
-                    disabled={loading}
                     endIcon={<ArrowForwardIcon />}
                     sx={{ py: 1.5, mt: 1 }}
-                  >
-                    {loading ? 'Enviando...' : 'Quiero mi crédito'}
+                    >
+                    Quiero mi crédito
                   </Button>
 
                   <Typography variant="caption" color="text.secondary" textAlign="center">
-                    Al enviar, aceptas que un colaborador de Empresa X te contacte con fines comerciales.
+                    Al enviar, aceptas que un colaborador de banca.me te contacte con fines comerciales.
                   </Typography>
                 </Stack>
               </Box>
