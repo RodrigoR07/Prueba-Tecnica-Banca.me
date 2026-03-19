@@ -6,10 +6,6 @@ import {
   InputAdornment, Alert, Fade, Chip, Stack, Divider,
 } from '@mui/material';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { leadService } from '../services/leadService';
