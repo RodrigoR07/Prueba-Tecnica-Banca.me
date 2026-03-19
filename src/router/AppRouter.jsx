@@ -2,11 +2,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 import Landing from '../pages/Landing';
+import CreditApplication from '../pages/CreditApplication';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Dashboard from '../pages/Dashboard';
 import LeadDetail from '../pages/LeadDetail';
-import Evaluation from '../pages/Evaluation';
+import Evaluation from '../pages/Evaluation'; 
 import NotFound from '../pages/NotFound';
 
 function ProtectedRoute({ children }) {
@@ -25,6 +26,7 @@ export default function AppRouter() {
       <Routes>
         {/* Rutas públicas */}
         <Route path="/" element={<Landing />} />
+        <Route path="/solicitud" element={<CreditApplication />} />
         <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
         <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
 
