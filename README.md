@@ -1,4 +1,4 @@
-# Empresa X — Credit Management MVP
+# Credit Management MVP
 
 A web application for managing credit requests, built with React + Vite + Material UI.
 
@@ -13,8 +13,8 @@ A web application for managing credit requests, built with React + Vite + Materi
 
 ### Installation
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/RodrigoR07/Prueba-Tecnica-Banca.me.git
+cd Prueba-Tecnica-Banca.me
 npm install
 ```
 
